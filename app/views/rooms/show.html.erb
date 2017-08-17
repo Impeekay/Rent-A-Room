@@ -47,24 +47,52 @@
   <% end %>
 <% end %>
 
-<p>StartDate: <input type="text" id="Startdatepicker"></p>
-<p>EndDate: <input type="text" id="Enddatepicker"></p>
+<label for="from">From</label>
+<input type="text" id="from" name="from">
+<label for="to">to</label>
+<input type="text" id="to" name="to"><br>
+<br>
 <%= link_to 'new ammenity' , new_room_amenity_path(@room) %>|
 <%= link_to "book" , new_room_booking_path(@room) , id: "book"%>|
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
 
  <script>
-  $( function() {
-    $( "#Startdatepicker" ).datepicker({
-      dateFormat: 'yy-mm-dd',
-      changeMonth: true,
-      changeYear: true
-    });
-    $( "#Enddatepicker" ).datepicker({
-      dateFormat: 'yy-mm-dd',
-      changeMonth: true,
-      changeYear: true
-    });
+    $( function() {
+    var dateFormat = "mm/dd/yy",
+      from = $( "#from" )
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 3
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#to" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
   } );
+
+  $(document).ready(function(){
+    $.get("/rooms/check_bookings?room_id=<%= @room.id %>",function(result){
+      
+    });
+  });
   </script>

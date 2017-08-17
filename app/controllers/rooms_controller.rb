@@ -12,6 +12,10 @@ class RoomsController < ApplicationController
   def show
   end
 
+  def check_bookings
+    room = Room.find(params[:room_id])
+    @bookings = room.bookings
+  end
   # GET /rooms/new
   def new
     @room = Room.new

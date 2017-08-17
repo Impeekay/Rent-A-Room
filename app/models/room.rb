@@ -6,6 +6,7 @@ class Room < ActiveRecord::Base
 	after_save :update_guest_to_host
 	after_destroy :update_host_to_guest
 	has_many :amenities
+	has_many :bookings
 	private
 
 	def update_guest_to_host

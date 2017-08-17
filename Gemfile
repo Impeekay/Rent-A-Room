@@ -29,7 +29,7 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem 'rabl'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

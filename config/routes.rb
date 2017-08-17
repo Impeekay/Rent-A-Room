@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'rooms/check_bookings'
   resources :rooms do
     resources :amenities
     resources :bookings
