@@ -1,0 +1,88 @@
+<%= form_for(@room) do |f| %>
+  <% if @room.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
+
+      <ul>
+      <% @room.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :rules %><br>
+    <%= f.text_area :rules %>
+  </div>
+  <div class="field">
+    <%= f.label :minimum_days %><br>
+    <%= f.select :minimum_days , [1,2,3,4,5]%>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_area :address %>
+  </div>
+  <div class="field">
+    <%= f.label :latitude %><br>
+    <%= f.text_field :latitude %>
+  </div>
+  <div class="field">
+    <%= f.label :longitude %><br>
+    <%= f.text_field :longitude %>
+  </div>
+  <div class="field">
+    <%= f.label :city_id %><br>
+    <%= f.collection_select :city_id , City.all , :id , :name %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :user_id, value: current_user.id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<div id="map">
+
+</div>
+
+<script>
+  
+  var handle = document.getElementById('room_address');
+
+  handle.onblur = function(){
+    if(handle.value != ""){
+      $("#map").empty();
+      var address = handle.value.split(" ");
+      var send_address = address.join("+");
+      $.ajax({url: "https://maps.googleapis.com/maps/api/geocode/json?address= " + send_address + "&key=AIzaSyBVRodsY3C5yOKnjSO9vYwWs8lfglebDTc", success: function(result){
+        var res =  result["results"][0]["geometry"]["location"];
+        var lat = res.lat;
+        var long = res.lng;
+        $("#room_latitude")[0].value = lat;
+        $("#room_longitude")[0].value = long;
+        var i = document.createElement("iframe");
+        i.width = "600";
+        i.height = "450";
+        i.frameborder="0";
+        i.style = "border:0";
+        i.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCpQuBa3ss1V-pAiHv6YmhlxBiEixgqPPE&q=" + lat + "," + long;
+        i.allowfullscreen = true;
+        $("#map")[0].appendChild(i);
+      }});
+    }
+  };
+</script>

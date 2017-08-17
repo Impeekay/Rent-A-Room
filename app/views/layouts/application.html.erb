@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RentARoom</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+	<p class="notice"><%= notice %></p>
+	<p class="alert"><%= alert %></p>
+
+	<% if current_user %>
+		<%= link_to "Log-out", destroy_user_session_path ,method: :delete %>
+		<strong><%= current_user.user_role.name %></strong>
+		<span><%= current_user.first_name %></span>
+	<% else %>
+		<%= link_to "Log-in" , new_user_session_path %>
+	<% end %>
+<%= yield %>
+
+</body>
+</html>
