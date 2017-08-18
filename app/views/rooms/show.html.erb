@@ -58,26 +58,43 @@
 <%= link_to 'Back', rooms_path %>
 
  <script>
+  var dates = [];
     $( function() {
     var dateFormat = "mm/dd/yy",
       from = $( "#from" )
         .datepicker({
+          //minDate: 0,
+          dateFormat: "yy-mm-dd",
           defaultDate: "+1w",
           changeMonth: true,
-          numberOfMonths: 3
+          numberOfMonths: 3,
+          beforeShowDay: function(date){
+            if($.inArray($.datepicker.formatDate('yy-mm-dd',date),dates) > -1){
+              return [false,"","booked"];
+            }
+            return [true,"","available"];
+          }
         })
         .on( "change", function() {
           to.datepicker( "option", "minDate", getDate( this ) );
         }),
       to = $( "#to" ).datepicker({
+        //minDate: 0,
+        dateFormat: "yyyy-mm-dd",
         defaultDate: "+1w",
         changeMonth: true,
-        numberOfMonths: 3
+        numberOfMonths: 3,
+        beforeShowDay: function(date){
+            if($.inArray($.datepicker.formatDate('yy-mm-dd',date),dates) > -1){
+              return [false,"","booked"];
+            }
+            return [true,"","available"];
+          }
       })
       .on( "change", function() {
         from.datepicker( "option", "maxDate", getDate( this ) );
       });
- 
+
     function getDate( element ) {
       var date;
       try {
@@ -92,7 +109,10 @@
 
   $(document).ready(function(){
     $.get("/rooms/check_bookings?room_id=<%= @room.id %>",function(result){
-      
+      result.forEach(function(obj){
+        dates.push(obj["booking"].start_date);
+        dates.push(obj["booking"].end_date);
+      })
     });
   });
   </script>
