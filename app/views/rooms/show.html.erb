@@ -31,13 +31,11 @@
 </p>
 
 <p>
-  <strong>Latitude:</strong>
-  <%= @room.latitude %>
+  <strong>Latitude:</strong><span id='latitude'><%= @room.latitude %></span>
 </p>
 
 <p>
-  <strong>Longitude:</strong>
-  <%= @room.longitude %>
+  <strong>Longitude:</strong><span id='longitude'><%= @room.longitude %></span>
 </p>
 
 <% if @room.amenities != nil %> 
@@ -46,6 +44,9 @@
   <p><%= amenity.description %></p>
   <% end %>
 <% end %>
+
+<div id="map">
+</div>
 
 <div id="form">
 <label for="from">From</label>
@@ -65,7 +66,7 @@
     var dateFormat = "mm/dd/yy",
       from = $( "#from" )
         .datepicker({
-          minDate: 0,
+          //minDate: 0,
           dateFormat: "yy-mm-dd",
           defaultDate: "+1w",
           changeMonth: true,
@@ -79,7 +80,7 @@
         })
         ,
       to = $( "#to" ).datepicker({
-        minDate: 0,
+        //minDate: 0,
         dateFormat: "yy-mm-dd",
         defaultDate: "+1w",
         changeMonth: true,
@@ -97,9 +98,34 @@
   $(document).ready(function(){
     $.get("/rooms/check_bookings?room_id=<%= @room.id %>",function(result){
       result.forEach(function(obj){
-        dates.push(obj["booking"].start_date);
-        dates.push(obj["booking"].end_date);
+        var sd = new Date(obj["booking"].start_date);
+        var ed = new Date(obj["booking"].end_date);
+        while(sd <= ed){
+          var date = "";
+          date += sd.getFullYear();
+          date += "-";
+          if(sd.getMonth() < 10){ 
+            date += "0"  
+            date += (sd.getMonth() + 1);
+            date += "-";
+          }
+          else{
+          date += (sd.getMonth() + 1);
+          date += "-";
+        }
+          date += sd.getDate();
+          dates.push(date);
+          sd = new Date(sd.getTime() + 1000*60*60*24);
+        }  
       })
     });
+    var i = document.createElement("iframe");
+        i.width = "600";
+        i.height = "450";
+        i.frameborder="0";
+        i.style = "border:0";
+        i.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCpQuBa3ss1V-pAiHv6YmhlxBiEixgqPPE&q=" + $("latitude").innerHTML + "," + $("longitude").innerHTML;
+        i.allowfullscreen = true;
+        $("#map")[0].appendChild(i);
   });
   </script>

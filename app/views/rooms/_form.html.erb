@@ -74,14 +74,6 @@
         var long = res.lng;
         $("#room_latitude")[0].value = lat;
         $("#room_longitude")[0].value = long;
-        var i = document.createElement("iframe");
-        i.width = "600";
-        i.height = "450";
-        i.frameborder="0";
-        i.style = "border:0";
-        i.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCpQuBa3ss1V-pAiHv6YmhlxBiEixgqPPE&q=" + lat + "," + long;
-        i.allowfullscreen = true;
-        $("#map")[0].appendChild(i);
       }});
     }
   };
