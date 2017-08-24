@@ -1,0 +1,30 @@
+<%= form_for @booking,remote: true do |f| %>
+  <% if @booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this room from being saved:</h2>
+
+      <ul>
+      <% @booking.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :start_date %><br>
+    <%= f.text_field :start_date , id: "from" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.text_field :end_date, id: "to" %>
+  </div>
+
+    <%= f.hidden_field :room_id, value: @room.id %>
+    
+  <div class="actions">
+    <%= f.submit "Book" %>
+  </div>
+
+  <% end %>

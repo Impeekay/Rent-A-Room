@@ -1,3 +1,5 @@
+<div class="container">
+<div class="col-md-6">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -38,6 +40,14 @@
   <strong>Longitude:</strong><span id='longitude'><%= @room.longitude %></span>
 </p>
 
+<div id="form">
+<%= render './bookings/form' %>
+</div>
+<br>
+<%= link_to 'new ammenity' , new_room_amenity_path(@room) %>|
+<%= link_to 'Edit', edit_room_path(@room) %> |
+<%= link_to 'Back', rooms_path %>
+
 <% if @room.amenities != nil %> 
   <% @room.amenities.each do |amenity| %>
   <span><%= amenity.name %></span>
@@ -45,21 +55,12 @@
   <% end %>
 <% end %>
 
-<div id="map">
 </div>
 
-<div id="form">
-<label for="from">From</label>
-<input type="text" id="from" name="from">
-<label for="to">to</label>
-<input type="text" id="to" name="to">
-</div><br>
-<br>
-<%= link_to 'new ammenity' , new_room_amenity_path(@room) %>|
-<%= link_to "book" , new_room_booking_path(@room) , id: "book"%>|
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
+<div class="col-md-6" id="map">
+</div>
 
+</div>
  <script>
   var dates = [];
     $( function() {
