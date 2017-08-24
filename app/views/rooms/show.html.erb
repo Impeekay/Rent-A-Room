@@ -55,6 +55,12 @@
   <% end %>
 <% end %>
 
+<div id="booking">
+<% if @room.user.id == current_user.id %>
+  <button id="bookings" class="btn btn-small">Get Pending Bookings</button>
+<% end %>
+</div>
+
 </div>
 
 <div class="col-md-6" id="map">
@@ -134,5 +140,9 @@
         i.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCpQuBa3ss1V-pAiHv6YmhlxBiEixgqPPE&q=" + $("latitude").innerHTML + "," + $("longitude").innerHTML;
         i.allowfullscreen = true;
         $("#map")[0].appendChild(i);
+
+        $("#bookings").click(function(){
+          $.get('/bookings?room_id=<%= @room.id %>');
+        });
   });
   </script>

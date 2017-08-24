@@ -1,5 +1,9 @@
 class BookingsController < ApplicationController
 
+	def index
+		@bookings = Booking.where(:room_id => params[:room_id],:is_confirmed => false)
+	end
+
 	def new
 		@booking = Booking.new
 	end
@@ -8,6 +12,14 @@ class BookingsController < ApplicationController
 		@booking = Booking.new(booking_params)
 		@booking.user_id = current_user.id
 		@booking.save
+	end
+
+	def update
+		@booking = Booking.find(params[:id])
+			if @booking.is_confirmed == false
+				@booking.is_confirmed = true
+				@booking.save
+			end
 	end
 
 	private

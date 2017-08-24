@@ -1,0 +1,7 @@
+<% if @bookings.nil? %>
+	<span>No bookings pending</span>
+<% else %>
+	<% @bookings.each do |booking,index| %>
+		<li id="<%= booking.id %>"><%= booking.start_date %> - <%= link_to "confirm booking", booking_path(booking) ,method: :patch ,remote: true %></li>
+		<% end %>
+<% end %>
