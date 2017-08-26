@@ -5,4 +5,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
    belongs_to :user_role
    has_many :rooms
+   has_many :bookings
 end

@@ -20,6 +20,7 @@ class BookingsController < ApplicationController
 				@booking.is_confirmed = true
 				@booking.save
 			end
+		@bookings = Booking.where(:room_id => @booking.room_id, :is_confirmed => false)
 	end
 
 	private

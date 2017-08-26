@@ -3,8 +3,8 @@
 	<strong>No Bookings pending.</strong>
 <% else %>
 	<br>
-	<strong>Bookings pending</strong>
+	<strong>Bookings pending (<%= @bookings.count %>)</strong>
 	<% @bookings.each do |booking,index| %>
-		<li id="<%= booking.id %>"><%= booking.start_date %> - <%= link_to "confirm booking", booking_path(booking) ,method: :patch ,remote: true %></li>
+		<li id="<%= booking.id %>"><%= booking.start_date %> (<%= booking.user.username %>)- <%= link_to "confirm booking", booking_path(booking) ,method: :patch ,remote: true ,data: {confirm: 'Are you sure?'}%></li>
 		<% end %>
 <% end %>
