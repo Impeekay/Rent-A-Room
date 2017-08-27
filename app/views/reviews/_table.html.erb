@@ -1,0 +1,9 @@
+<% if @reviews.empty? %>
+	<br>
+	<strong>No reviews yet.</strong>
+<% else %>
+	<% @reviews.each do |review| %>
+	<li><%= review.body %></li>
+	<% end %>
+<% end %>
+<%= render 'form' %>

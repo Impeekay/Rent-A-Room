@@ -1,5 +1,7 @@
 class Room < ActiveRecord::Base
 
+	validates_presence_of :name,:description,:price,:rules,:minimum_days,:address,:city
+
 	belongs_to :city
 	belongs_to :user
 	has_many :images
@@ -7,6 +9,7 @@ class Room < ActiveRecord::Base
 	after_destroy :update_host_to_guest
 	has_many :amenities
 	has_many :bookings
+	has_many :reviews
 	private
 
 	def update_guest_to_host

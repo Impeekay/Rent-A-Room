@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  food: 1.5
+  cleanliness: 1.5
+  safety: 1.5
+  locality: 1.5
+  facility: 1.5
+  body: MyText
+  user_id: 1
+  room_id: 1
+
+two:
+  food: 1.5
+  cleanliness: 1.5
+  safety: 1.5
+  locality: 1.5
+  facility: 1.5
+  body: MyText
+  user_id: 1
+  room_id: 1
