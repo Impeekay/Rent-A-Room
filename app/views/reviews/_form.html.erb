@@ -1,1 +1,33 @@
-//todo form
+<%= form_for Review.new do |f| %>
+
+  <div class="field">
+    <%= f.label :food %>(<span id="food-span"></span>)<br>
+    <%= f.hidden_field :food, id: 'food' %>
+    <div id="slider-range-max"></div>
+  </div>
+
+<% end %>
+
+<!-- <p>
+  Food <label for="amount" class="glyphicon glyphicon-star
+"></label>
+  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+<div id="slider-range-max"></div>
+  -->
+<script>
+  $( function() {
+    $( "#slider-range-max" ).slider({
+      range: "max",
+      min: 1.0,
+      max: 5.0,
+      step: 0.1,
+      value: 1.0,
+      slide: function( event, ui ) {
+        $( "#food" ).val( ui.value );
+        $('#food-span').val( ui.value);
+      }
+    });
+    $( "#food" ).val( $( "#slider-range-max" ).slider( "value" ) );
+  } );
+  </script>
