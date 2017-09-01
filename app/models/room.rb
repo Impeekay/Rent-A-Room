@@ -1,4 +1,4 @@
-class Room < ActiveRecord::Base
+class Room < ApplicationRecord
 
 	validates_presence_of :name,:description,:price,:rules,:minimum_days,:address,:city
 

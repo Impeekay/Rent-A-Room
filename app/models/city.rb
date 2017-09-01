@@ -1,4 +1,4 @@
-class City < ActiveRecord::Base
+class City < ApplicationRecord
 
 	has_many :rooms
 end

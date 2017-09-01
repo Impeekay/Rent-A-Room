@@ -153,8 +153,8 @@
         i.frameborder="0";
         i.style = "border:0";
         i.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCpQuBa3ss1V-pAiHv6YmhlxBiEixgqPPE&q=" + $("latitude").innerHTML + "," + $("longitude").innerHTML;
+        console.log(i.src);
         i.allowfullscreen = true;
-        $('map').empty();
         $("#map")[0].appendChild(i);
 
         $("#bookings").click(function(){
