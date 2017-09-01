@@ -1,52 +1,43 @@
 <h3>Add review</h3>
-<%= form_for Review.new ,remote: true do |f| %>
+<% @review = Review.new %>
+<%= form_for @review,remote: true do |f| %>
 
-  <div class="field">
-    <%= f.label :food %><br>
-    <%= f.text_field :food, id: 'food' %>
+  <div class="display" >
+    <%= f.label :food %>(<span id="showFood" class="glyphicon glyphicon-star"></span>)<br>
+    <%= f.hidden_field :food, id: 'food' %>
     <div class="slider" id="first"></div>
   </div>
 
-  <div class="field">
-  <%= f.label :safety %><br>
-  <%= f.text_field :safety, id: 'safety' %>
+
+  <div class="display">
+  <%= f.label :safety %>(<span id="showSafety" class="glyphicon glyphicon-star"></span>)<br>
+  <%= f.hidden_field :safety, id: 'safety' %>
+    <div class="slider" id="second"></div>
+  </div>
+
+  <div class="display">
+  <%= f.label :cleanliness %>(<span id="showCleanliness" class="glyphicon glyphicon-star"></span>)<br>
+  <%= f.hidden_field :cleanliness, id: 'cleanliness' %>
+    <div class="slider" id="second"></div>
+  </div>
+
+  <div class="display">
+  <%= f.label :facility %>(<span id="showFacility" class="glyphicon glyphicon-star"></span>)<br>
+  <%= f.hidden_field :facility ,id: 'facility' %>
+    <div class="slider" id="second"></div>
+  </div>
+
+  <div class="display">
+  <%= f.label :locality %>(<span id="showLocality" class="glyphicon glyphicon-star"></span>)<br>
+  <%= f.hidden_field :locality, id: 'locality' %>
     <div class="slider" id="second"></div>
   </div>
 
   <%= f.submit "Add review"%>
 <% end %>
  
-<!-- <p>
-  Food <label for="amount" class="glyphicon glyphicon-star
-"></label>
-  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-</p>
-<div id="slider-range-max"></div>
-  -->
 <script>
-  // $( function() {
-  //   $( "#slider-range-max" ).slider({
-  //     range: "max",
-  //     min: 1.0,
-  //     max: 5.0,
-  //     step: 0.1,
-  //     value: 1.0,
-  //     slide: function( event, ui ) {
-  //       $( "#food" ).val( ui.value );
-  //     }
-  //   });
-  //   $( "#food" ).val( $( "#slider-range-max" ).slider( "value" ) );
 
-    // $( "#eq > span" ).each(function() {
-    //   // read initial values from markup and remove that
-    //   var value = parseInt( $( this ).text());
-    //   $( this ).empty().slider({
-    //     value: value,
-    //     range: "min",
-    //     animate: true,
-    //     orientation: "vertical"
-    //   });
-    // });
   $( function() {
     $('div[class="slider"]').each(function(){
       $(this).slider({
@@ -57,6 +48,7 @@
         value: 1.0,
         slide: function( event, ui ) {
         $( "#food" ).val( ui.value );
+        $('#showFood').text(ui.value);
         }
       });
 

@@ -2,6 +2,7 @@
 	<br>
 	<strong>No reviews yet.</strong>
 <% else %>
+	<strong>Listing Reviews</strong>
 	<% @reviews.each do |review| %>
 	<li><%= review.body %></li>
 	<% end %>
